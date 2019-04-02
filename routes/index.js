@@ -17,9 +17,24 @@ const upload = multer({ storage });
 
 
 router.get('/', async (req, res) => {
+  if (!req.session.filter) {
+    req.session.filter = 0;
+  }
+
   const query = ' \
   SELECT * \
   FROM appTest';
+
+  // if (x) {
+  //   query += ' ORDER BY ' + x;
+  //   if (req.session.filter === 0) {
+  //     query += ' DESC';
+  //     req.session.filter += 1;
+  //   } else {
+  //     query += ' ASC';
+  //     req.session.filter -= 1;
+  //   }
+  // }
 
   const result = await db.query(query);
 
