@@ -1,0 +1,21 @@
+<div class="jumbotron jumbotron-fluid" style = "padding-left: 30px;">
+    <h1 class="display-4">APPS and things</h1>
+    <p class="lead">Welcome to an incredibly basic iteration</p>
+    <a class = "btn btn-warning mb-2" href="/users/login">Login</a><a class="btn btn-success mb-2" href="/users/register">Register Here</a><a class="btn btn-danger mb-2" href="/multer">Multer Test</a><a class = "btn btn-info mb-2" href="/users/change-password">Change Password</a><a class = "btn btn-primary mb-2" href="/users/logout">Logout</a>
+
+</div>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        {{#each fields}}
+        <th>{{this.name}}</th>
+        {{/each}}
+    </tr>
+    {{#each rows}}
+    <tr>
+        {{#each this}}
+        <td>{{this}}</td>
+        {{/each}}
+    </tr>
+    {{/each}}
+</table>
