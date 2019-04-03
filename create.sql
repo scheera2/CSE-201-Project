@@ -10,7 +10,8 @@ CREATE TABLE appTest (
 );
 
 INSERT INTO appTest(name, descrip, developer, platform, platformv, price)
-VALUES ('test1', 'This is the first test', 'WeDS', 'PC', '1.0', 999999999);
+VALUES ('test1', 'This is the first test', 'WeDS', 'PC', '1.0', 999999999),
+('test2', 'This is the second test', 'YEET', 'Potato', '0.01', 1);
 
 CREATE TABLE appUsers (
     id serial PRIMARY KEY,

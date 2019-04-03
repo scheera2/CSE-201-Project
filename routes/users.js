@@ -25,7 +25,6 @@ router.post('/register', async (req, res) => {
 
   const selectQuery = 'SELECT * FROM appUsers WHERE username = $1';
   const selectResult = await db.query(selectQuery, [req.body.username]);
-  console.log(selectResult);
 
   if (selectResult.rows.length > 0) {
     errors.push('That username is already taken.');
@@ -54,7 +53,6 @@ router.post('/login', async (req, res) => {
 
     if (auth) {
       [req.session.user] = selectResult.rows;
-      console.log(req.session.user);
       res.redirect('/');
     } else {
       errors.push('Incorrect username/password');
@@ -75,7 +73,6 @@ router.post('/change-password', async (req, res) => {
   const selectQuery = 'SELECT * FROM appUsers WHERE username = $1';
   const selectResult = await db.query(selectQuery, [req.session.user.username]);
 
-  console.log(selectResult.rows[0].password);
   const auth = await bcrypt.compare(req.body.old_password, selectResult.rows[0].password);
   const auth2 = (req.body.new_password === req.body.new_password_conf);
 
