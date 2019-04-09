@@ -30,9 +30,27 @@
     </tr>
     {{#each rows}}
     <tr>
-        {{#each this}}
-        <td>{{this}}</td>
-        {{/each}}
+        <td>
+            {{this.ID}}
+        </td>
+        <td>
+            <a href="/items/{{this.ID}}">{{this.Name}}</a>
+        </td>
+        <td>
+            {{this.Description}}
+        </td>
+        <td>
+            {{this.Developer}}
+        </td>
+        <td>
+            {{this.Platform}}
+        </td>
+        <td>
+            {{this.Version}}
+        </td>
+        <td>
+            {{this.Price}}
+        </td>
     </tr>
     {{/each}}
 </table>
