@@ -102,10 +102,6 @@ router.post('/change-password', async (req, res) => {
   }
 });
 
-router.get('/dont', (req, res) => {
-  res.render('dont');
-});
-
 router.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/');
