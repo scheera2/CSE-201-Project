@@ -1,5 +1,38 @@
-{{#each rows}}
-{{#each this}}
-<p>{{this}}</p>
-{{/each}}
-{{/each}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3">
+            <table class="table table-bordered">
+                <tr>
+                    <td>
+                        <span>ID</span>
+                    </td>
+                    <td>
+                        <span>Name</span>
+                    </td>
+                    <td>
+                        <span>Description</span>
+                    </td>
+                    <td>
+                        <span>Developer</span>
+                    </td>
+                    <td>
+                        <span>Platform</span>
+                    </td>
+                    <td>
+                        <span>Version</span>
+                    </td>
+                    <td>
+                        <span>Price</span>
+                    </td>
+                </tr>
+                <tr>
+                    {{#each rows}}
+                    {{#each this}}
+                    <td>{{this}}</td>
+                    {{/each}}
+                    {{/each}}
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
