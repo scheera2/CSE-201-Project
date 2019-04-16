@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Add A Character</h1>
+    {{#each errors}}
+    <div class="alert alert-danger">
+        {{this}}
+    </div>
+    {{/each}}
+    <form method="post">
+        <div class="form-group">
+            <label for="name">App Name</label>
+            <input class="form-control" name="name" />
+        </div>
+        <div class="form-group">
+            <label for="descrip">App Description</label>
+            <input class="form-control" name="descrip" />
+        </div>
+        <div class="form-group">
+            <label for="developer">App Developer</label>
+            <input class="form-control" name="developer" />
+        </div>
+        <div class="form-group">
+            <label for="platform">App Platform</label>
+            <input class="form-control" name="platform" />
+        </div>
+        <div class="form-group">
+            <label for="version">App Version</label>
+            <input class="form-control" name="version" />
+        </div>
+        <div class="form-group">
+            <label for="price">App Price</label>
+            <input class="form-control" name="price" />
+        </div>
+        <button class="btn btn-primary mb-2" type="submit">Submit</button> <a class="btn btn-success mb-2" href="/">Back</a>
+
+    </form>
+</div>

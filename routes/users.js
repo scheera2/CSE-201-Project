@@ -33,7 +33,7 @@ router.post('/register', async (req, res) => {
   if (!errors.length) {
     const insertQuery = 'INSERT INTO appUsers (username, email, password) VALUES ($1, $2, $3)';
     const password = await bcrypt.hash(req.body.password, 10);
-    
+
     await db.query(insertQuery, [req.body.username, req.body.email, password]);
 
     res.redirect('login');
@@ -99,6 +99,29 @@ router.post('/change-password', async (req, res) => {
   } else {
     errors.push('Old Password is not correct');
     res.render('change-password', { errors });
+  }
+});
+
+router.get('/add', (req, res) => {
+  res.render('add');
+});
+
+router.post('/add', async (req, res) => {
+  const errors = [];
+
+  if (!req.body.name || !req.body.descrip || !req.body.developer || !req.body.platform || !req.body.version || !req.body.price) {
+    errors.push('All fields must be filled out');
+  }
+
+  if (!errors.length) {
+    const queryAdd = '\
+       INSERT INTO appTest(name, descrip, developer, platform, platformv, price) \
+       VALUES (\'' + req.body.name + '\',\'' + req.body.descrip + '\',\'' + req.body.developer + '\',\'' + req.body.platform + '\',\'' + req.body.version + '\',' + req.body.price + ')';
+      console.log(queryAdd);
+       await db.query(queryAdd);
+    res.redirect('/');
+  } else {
+    res.render('add', { errors });
   }
 });
 

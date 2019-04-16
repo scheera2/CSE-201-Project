@@ -2,10 +2,10 @@
     <h1 class="display-4">APPS and things</h1>
     <p class="lead">Welcome to an incredibly basic iteration</p>
     {{#unless user}}<a class="btn btn-warning mb-2" href="/users/login">Login</a><a class="btn btn-success mb-2"
-        href="/users/register">Register Here</a>{{/unless}}{{#if user}}<a class="btn btn-info mb-2" href="/users/change-password">Change Password</a>{{/if}}{{#if user}}<a
-        class="btn btn-danger mb-2" href="/users/logout">Logout</a>{{/if}}<a class="btn btn-primary mb-2" href="/multer">Multer
-        Test</a><a class="btn btn-basic mb-2"
-        href="/users/dont">Don't Press This</a>
+        href="/users/register">Register Here</a>{{/unless}}{{#if user}}<a class="btn btn-info mb-2"
+        href="/users/change-password">Change Password</a>{{/if}}{{#if user}}<a class="btn btn-danger mb-2"
+        href="/users/logout">Logout</a>{{/if}}<a class="btn btn-primary mb-2" href="/multer">Multer
+        Test</a>
 
 </div>
 
@@ -57,7 +57,7 @@
 
 {{#if user}}
 <h3 style="margin-left: 5%;">Submit Something</h3>
-<form method="post">
-    <input class="form-control" type="text" name="search_bar" style="width: 30%; margin-left: 5%;" />
-</form>
+<div class="container">
+    <a class="btn btn-primary" href="/users/add" style="margin-left: -12%;">Submit New Entry</a>
+</div>
 {{/if}}
