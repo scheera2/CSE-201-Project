@@ -33,6 +33,7 @@
                     {{/each}}
                 </tr>
             </table>
+            {{#if user}}
             <form method="post">
                 <div class="form-group">
                     <label for="name">Comment: </label>
@@ -40,6 +41,7 @@
                 </div>
                 <button class="btn btn-primary mb-2" type="submit">Submit</button>
             </form>
+            {{/if}}
         </div>
         <div class="col-6">
             {{#each commentInfo}}
@@ -49,8 +51,8 @@
                     var year = d.getFullYear();
                     var month = d.toLocaleString('en-us', { month: 'long' });
                     var day = d.getDate();
-                    var hours = d.getHours();
-                    var mins = d.getMinutes();
+                    var hours = ("0" + d.getHours()).slice(-2);
+                    var mins = ("0" + d.getMinutes()).slice(-2);
                     var time = "" + hours + ":" + mins + " " + month + " " + day + ", " + year;
                     document.write(time);
                 </script></p>

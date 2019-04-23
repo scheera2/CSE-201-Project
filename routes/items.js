@@ -11,7 +11,7 @@ router.get('/:itemID', async (req, res) => {
     query2 = "SELECT itemID AS \"itemID\", date AS \"Date\", commentText AS \"commentText\", userName AS \"userName\" \
     FROM comments WHERE itemID=\' " + id + "\'; "
     const result2 = await db.query(query2);
-    res.render('item', {rows: result.rows, commentInfo: result2.rows});
+    res.render('item', {rows: result.rows, commentInfo: result2.rows, user: req.session.user});
 });
 
 
@@ -25,14 +25,14 @@ router.post('/:itemID', async (req, res) => {
     if (!errors.length) {
       id = req.params.itemID;
       date = new Date().getTime();
-      user = "asdf"
+      user = req.session.user.username;
 
       const queryAdd = '\
           INSERT INTO comments(itemID, date, commentText, userName) \
           VALUES (\'' + id + '\',\'' + date + '\',\'' + req.body.comment + '\',\'' + user + '\')';        
           console.log(queryAdd);
         await db.query(queryAdd);
-      res.redirect('/' + id);
+      res.redirect('/items/' + id);
     } else {
       res.render('add', { errors });
     }
