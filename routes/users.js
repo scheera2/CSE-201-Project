@@ -115,8 +115,8 @@ router.post('/add', async (req, res) => {
 
   if (!errors.length) {
     const queryAdd = '\
-       INSERT INTO appTest(name, descrip, developer, platform, platformv, price) \
-       VALUES (\'' + req.body.name + '\',\'' + req.body.descrip + '\',\'' + req.body.developer + '\',\'' + req.body.platform + '\',\'' + req.body.version + '\',' + req.body.price + ')';
+       INSERT INTO appTestPending(name, descrip, developer, platform, platformv, price, username) \
+       VALUES (\'' + req.body.name + '\',\'' + req.body.descrip + '\',\'' + req.body.developer + '\',\'' + req.body.platform + '\',\'' + req.body.version + '\',' + req.body.price + ',\'' + req.session.user.username + '\')';
       console.log(queryAdd);
        await db.query(queryAdd);
     res.redirect('/');
@@ -127,6 +127,63 @@ router.post('/add', async (req, res) => {
 
 router.get('/logout', (req, res) => {
   req.session.destroy();
+  res.redirect('/');
+});
+
+router.get('/pending', async (req, res) => {
+  if (!req.session.filter) {
+    req.session.filter = 0;
+  }
+
+  let query = ' \
+  SELECT id AS \"ID\", name AS \"Name\", descrip AS \"Description\", developer AS \"Developer\", platform AS \"Platform\", platformv AS \"Version\", price AS \"Price\", username AS \"Submitter\" \
+  FROM appTestPending';
+
+  let x;
+  if (req.query.filter === 'Description') {
+    x = 'descrip';
+  } else if (req.query.filter === 'Version') {
+    x = 'platformv';
+  } else {
+    x = req.query.filter;
+  }
+
+  if (x) {
+    query += ' ORDER BY ' + x;
+    if (req.session.filter === 0) {
+      query += ' DESC';
+      req.session.filter += 1;
+    } else {
+      query += ' ASC';
+      req.session.filter -= 1;
+    }
+  }
+  console.log(query);
+  const result = await db.query(query);
+  res.render('pending', {rows: result.rows, fields: result.fields, user: req.session.user});
+});
+
+router.post('/pending/approve', async (req, res) => {
+  const query = 'SELECT * FROM apptestpending \
+  WHERE apptestpending.name = \'' + req.body.approve + '\'';
+  const result = await db.query(query);
+  const query1 = 'INSERT INTO apptest(name, descrip, developer, platform, platformv, price) \
+  VALUES (\'' + result.rows[0].name + '\',\'' + result.rows[0].descrip + '\', \'' + result.rows[0].developer + '\',\'' + result.rows[0].platform + '\',\'' + result.rows[0].platformv + '\',' + result.rows[0].price + ');';
+  const query2 = 'DELETE FROM apptestpending \
+  WHERE apptestpending.name = \'' + result.rows[0].name + '\'';
+  await db.query(query1);
+  await db.query(query2);
+  res.redirect('/');
+
+});
+
+router.post('/pending/deny', async (req, res) => {
+  const query = 'SELECT * FROM apptestpending \
+  WHERE apptestpending.name = \'' + req.body.deny + '\'';
+  const result = await db.query(query);
+  const query2 = 'DELETE FROM apptestpending \
+  WHERE apptestpending.name = \'' + result.rows[0].name + '\'';
+  await db.query(query2);
   res.redirect('/');
 });
 

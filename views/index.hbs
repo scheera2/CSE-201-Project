@@ -6,6 +6,7 @@
         href="/users/change-password">Change Password</a>{{/if}}{{#if user}}<a class="btn btn-danger mb-2"
         href="/users/logout">Logout</a>{{/if}}<a class="btn btn-primary mb-2" href="/multer">Multer
         Test</a>
+    
 
 </div>
 
@@ -56,8 +57,14 @@
 </table>
 
 {{#if user}}
-<h3 style="margin-left: 5%;">Submit Something</h3>
+<h3 style="margin-left: 5%;">Submit an App For Review</h3>
 <div class="container">
-    <a class="btn btn-primary" href="/users/add" style="margin-left: -12%;">Submit New Entry</a>
+    <a class="btn btn-primary" href="/users/add" style="margin-left: -12%;">Submit New App</a>
+</div>
+{{/if}}
+{{#if user.admin}}
+<h3 style="margin-left: 5%;">Pending Submissions</h3>
+<div class="container">
+    <a class="btn btn-primary" href="/users/pending" style="margin-left: -12%;">Submissions Page</a>
 </div>
 {{/if}}
