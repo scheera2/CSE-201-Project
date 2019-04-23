@@ -34,6 +34,11 @@
                 </tr>
             </table>
             {{#if user}}
+            {{#each errors}}
+            <div class="alert alert-danger">
+                {{this}}
+            </div>
+            {{/each}}
             <form method="post">
                 <div class="form-group">
                     <label for="name">Comment: </label>

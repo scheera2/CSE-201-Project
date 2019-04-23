@@ -34,7 +34,14 @@ router.post('/:itemID', async (req, res) => {
         await db.query(queryAdd);
       res.redirect('/items/' + id);
     } else {
-      res.render('add', { errors });
+      id = req.params.itemID;
+      query = "SELECT id AS \"ID\", name AS \"Name\", descrip AS \"Description\", developer AS \"Developer\", platform AS \"Platform\", platformv AS \"Version\", price AS \"Price\" \
+      FROM appTest WHERE id=\' " + id + "\'; "
+      const result = await db.query(query);
+      query2 = "SELECT itemID AS \"itemID\", date AS \"Date\", commentText AS \"commentText\", userName AS \"userName\" \
+      FROM comments WHERE itemID=\' " + id + "\'; "
+      const result2 = await db.query(query2);
+      res.render('item', {rows: result.rows, commentInfo: result2.rows, user: req.session.user, errors: errors});
     }
   });
   
