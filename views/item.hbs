@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3">
+        <div class="col-6">
             <table class="table table-bordered">
                 <tr>
                     <td>
@@ -33,6 +33,35 @@
                     {{/each}}
                 </tr>
             </table>
+            {{#if user}}
+            {{#each errors}}
+            <div class="alert alert-danger">
+                {{this}}
+            </div>
+            {{/each}}
+            <form method="post">
+                <div class="form-group">
+                    <label for="name">Comment: </label>
+                    <textarea class="form-control" name="comment"rows="10" cols="60"></textarea>
+                </div>
+                <button class="btn btn-primary mb-2" type="submit">Submit</button>
+            </form>
+            {{/if}}
+        </div>
+        <div class="col-6">
+            {{#each commentInfo}}
+                <p>{{this.commentText}}</p>
+                <p>By {{this.userName}} at <script>
+                    var d = new Date({{this.Date}});
+                    var year = d.getFullYear();
+                    var month = d.toLocaleString('en-us', { month: 'long' });
+                    var day = d.getDate();
+                    var hours = ("0" + d.getHours()).slice(-2);
+                    var mins = ("0" + d.getMinutes()).slice(-2);
+                    var time = "" + hours + ":" + mins + " " + month + " " + day + ", " + year;
+                    document.write(time);
+                </script></p>
+            {{/each}}
         </div>
     </div>
 </div>

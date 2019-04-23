@@ -1,0 +1,7 @@
+#! /bin/bash
+echo Please enter file location
+read loc
+cd $loc
+npm install
+npm start
+bash
