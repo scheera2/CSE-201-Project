@@ -1,11 +1,14 @@
-<form action="post">
-    <div class="form-group">
-        <label for="result">Was this submission approved or denied?</label>
-        <select class="form-control" name="result">
-            <option>Approved</option>
-            <option>Denied</option>
-        </select><br>
-        <label for="reasoning">Enter Reasoning for approval/denial</label>
-        <input class="form-control" name="reasoning" />
-    </div>
-</form>
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+            <label for="result">Was this submission approved or denied?</label>
+            <select class="form-control" name="result">
+                <option>Approved</option>
+                <option>Denied</option>
+            </select><br>
+            <label for="reasoning">Enter Reasoning for approval/denial</label>
+            <input class="form-control" name="reasoning" />
+        </div>
+        <button class="btn btn-primary mb-2" type="submit">Submit</button>
+    </form>
+</div>

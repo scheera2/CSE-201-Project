@@ -60,4 +60,7 @@
     {{/each}}
 </table>
 {{/if}}
+{{#unless user.admin}}
+<h1>You do not have the privileges to access this page</h1>
+{{/unless}}
 <a class="btn btn-primary mb-2" href="/" style="margin-left: 5%;">Back</a>

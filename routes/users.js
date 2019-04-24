@@ -117,8 +117,8 @@ router.post('/add', async (req, res) => {
     const queryAdd = '\
        INSERT INTO appTestPending(name, descrip, developer, platform, platformv, price, username) \
        VALUES (\'' + req.body.name + '\',\'' + req.body.descrip + '\',\'' + req.body.developer + '\',\'' + req.body.platform + '\',\'' + req.body.version + '\',' + req.body.price + ',\'' + req.session.user.username + '\')';
-      console.log(queryAdd);
-       await db.query(queryAdd);
+    console.log(queryAdd);
+    await db.query(queryAdd);
     res.redirect('/');
   } else {
     res.render('add', { errors });
@@ -160,20 +160,26 @@ router.get('/pending', async (req, res) => {
   }
   console.log(query);
   const result = await db.query(query);
-  res.render('pending', {rows: result.rows, fields: result.fields, user: req.session.user});
+  res.render('pending', { rows: result.rows, fields: result.fields, user: req.session.user });
 });
 
 router.post('/pending/approve', async (req, res) => {
   const query = 'SELECT * FROM apptestpending \
   WHERE apptestpending.name = \'' + req.body.approve + '\'';
   const result = await db.query(query);
+
+  const queryMessage = 'INSERT INTO submessage(id, name, descrip, username, admin) \
+  VALUES (' + result.rows[0].id + ',\'' + result.rows[0].name + '\', \'' + result.rows[0].descrip + '\', \'' + result.rows[0].username + '\', \'' + req.session.user.username + '\')';
+  await db.query(queryMessage);
+
   const query1 = 'INSERT INTO apptest(name, descrip, developer, platform, platformv, price) \
   VALUES (\'' + result.rows[0].name + '\',\'' + result.rows[0].descrip + '\', \'' + result.rows[0].developer + '\',\'' + result.rows[0].platform + '\',\'' + result.rows[0].platformv + '\',' + result.rows[0].price + ');';
   const query2 = 'DELETE FROM apptestpending \
   WHERE apptestpending.name = \'' + result.rows[0].name + '\'';
   await db.query(query1);
   await db.query(query2);
-  res.redirect('/');
+
+  res.redirect('/users/subMessages/?id=' + result.rows[0].id);
 
 });
 
@@ -181,10 +187,28 @@ router.post('/pending/deny', async (req, res) => {
   const query = 'SELECT * FROM apptestpending \
   WHERE apptestpending.name = \'' + req.body.deny + '\'';
   const result = await db.query(query);
+
+  const queryMessage = 'INSERT INTO submessage(id, name, descrip, username, admin) \
+  VALUES (' + result.rows[0].id + ',\'' + result.rows[0].name + '\', \'' + result.rows[0].descrip + '\', \'' + result.rows[0].username + '\', \'' + req.session.user.username + '\')';
+  await db.query(queryMessage);
+
   const query2 = 'DELETE FROM apptestpending \
   WHERE apptestpending.name = \'' + result.rows[0].name + '\'';
   await db.query(query2);
-  res.redirect('/');
+
+  res.redirect('/users/subMessages/?id=' + result.rows[0].id);
+});
+
+router.get('/subMessages', async (req, res) => {
+  res.render('submissionMessage');
+});
+
+router.post('/subMessages', async (req, res) => {
+  const query = 'UPDATE submessage \
+  SET message = \'' + req.body.reasoning + '\', A_D = \'' + req.body.result + '\' \
+  WHERE submessage.id = \'' + req.query.id + '\'';
+  await db.query(query);
+  res.redirect('/users/pending');
 });
 
 module.exports = router;

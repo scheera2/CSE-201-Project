@@ -44,9 +44,17 @@ CREATE TABLE appTestPending
 ALTER TABLE appTestPending 
     ADD username text;
 
--- CREATE TABLE subMessage (
---     id int PRIMARY KEY,
---     name text,
---     descrip text,
---     message text
--- );
+CREATE TABLE subMessage (
+    id int PRIMARY KEY,
+    name text,
+    descrip text,
+    message text
+);
+
+ALTER TABLE subMessage 
+    ADD A_D text;
+ALTER TABLE subMessage
+    ADD username text;
+ALTER TABLE subMessage
+    ADD admin text;
+
