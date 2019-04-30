@@ -46,7 +46,8 @@ router.post('/:itemID', async (req, res) => {
         res.render('item', {rows: result.rows, commentInfo: result2.rows, user: req.session.user, errors: errors});
       }
     }else{
-      const queryDel = 'DELETE FROM comments WHERE date=\'' + req.body.deleteComment + '\' and itemID=\'' + req.params.itemID + "\'; "
+      var commentIds = req.body.deleteComment.split("+");
+      const queryDel = 'DELETE FROM comments WHERE date=\'' + commentIds[0] + '\' and itemID=\'' + req.params.itemID + '\' and userName=\'' + commentIds[1] + "\'; "
       console.log(queryDel);
       await db.query(queryDel);
       res.redirect('/items/' + req.params.itemID);
