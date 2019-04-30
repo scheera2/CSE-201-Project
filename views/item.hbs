@@ -50,6 +50,7 @@
         </div>
         <div class="col-6">
             {{#each commentInfo}}
+                <div class="border">
                 <p>{{this.commentText}}</p>
                 <p>By {{this.userName}} at <script>
                     var d = new Date({{this.Date}});
@@ -61,6 +62,11 @@
                     var time = "" + hours + ":" + mins + " " + month + " " + day + ", " + year;
                     document.write(time);
                 </script></p>
+                <form method="post"> 
+                <button name="deleteComment" type="submit" value="{{this.Date}}">Delete</button>
+                </form>
+                </div>
+                <br>
             {{/each}}
         </div>
     </div>
