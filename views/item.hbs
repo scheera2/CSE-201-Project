@@ -62,9 +62,11 @@
                     var time = "" + hours + ":" + mins + " " + month + " " + day + ", " + year;
                     document.write(time);
                 </script></p>
+                {{#if ../user.admin}}                
                 <form method="post"> 
                 <button name="deleteComment" type="submit" value="{{this.Date}}+{{this.userName}}">Delete</button>
                 </form>
+                {{/if}}
                 </div>
                 <br>
             {{/each}}
